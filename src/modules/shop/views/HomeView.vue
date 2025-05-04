@@ -590,3 +590,9 @@
     </div>
   </section>
 </template>
+
+<script lang="ts" setup>
+import { tesloApi } from '@/api/tesloApi';
+
+tesloApi;
+</script>
