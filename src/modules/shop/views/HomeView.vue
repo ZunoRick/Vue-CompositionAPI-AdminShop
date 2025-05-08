@@ -94,15 +94,30 @@
   </div>
 
   <ProductList v-else :products="productos" />
+
+  <BottomPagination :has-more-data="!!productos && productos.length < 10" :page="page" />
 </template>
 
 <script lang="ts" setup>
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useQuery } from '@tanstack/vue-query';
+import BottomPagination from '@/modules/common/components/BottomPagination.vue';
 import { getProductsAction } from '@/modules/products/actions';
 import ProductList from '@/modules/products/components/ProductList.vue';
-import { useQuery } from '@tanstack/vue-query';
 
-const { data: productos, isLoading } = useQuery({
-  queryKey: ['products', { page: 1 }],
-  queryFn: () => getProductsAction(),
+const route = useRoute();
+const page = ref(Number(route.query.page || 1));
+
+const { data: productos = [] } = useQuery({
+  queryKey: ['products', { page: page }],
+  queryFn: () => getProductsAction(page.value),
 });
+
+watch(
+  () => route.query.page,
+  (newPage) => {
+    page.value = Number(newPage || 1);
+  },
+);
 </script>
