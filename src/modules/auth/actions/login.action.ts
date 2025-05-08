@@ -1,6 +1,6 @@
 import { isAxiosError } from 'axios';
 import { tesloApi } from '@/api/tesloApi';
-import type { AuthResponse, User } from '../interface';
+import type { AuthResponse, User } from '../interfaces';
 
 interface LoginError {
   ok: false;
