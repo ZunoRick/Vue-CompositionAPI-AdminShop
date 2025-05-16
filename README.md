@@ -1,4 +1,4 @@
-# Admin Soop
+# Admin Shop
 
 Pasos para Dev
 
